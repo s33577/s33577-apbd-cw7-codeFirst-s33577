@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FormatTEST.Entities;
 
-public class ComponentManuFacturer
+public class ComponentType
 {
     [Key]
     public int Id { get; set; }
@@ -12,14 +12,10 @@ public class ComponentManuFacturer
     public string Abbreviation { get; set; }
     
     [Required]
-    [MaxLength(300)]
-    public string FullName { get; set; }
+    [MaxLength(150)]
+    public string Name { get; set; }
     
-    public DateTime FoundationDate { get; set; }
     
     public ICollection<Component> Components { get; set; } = new List<Component>();
-    
-    
-    
     
 }
