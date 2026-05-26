@@ -1,4 +1,5 @@
 using FormatTEST.DTOs;
+using FormatTEST.Entities;
 
 namespace FormatTEST.Services;
 
