@@ -1,9 +1,13 @@
+using FormatTEST.DTOs;
 using FormatTEST.Services;
 using Kolokwium.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormatTEST.Controllers;
 
+
+[Route("api/[controller]")]
+[ApiController]
 public class PCsController : ControllerBase
 {
     private readonly IDbService _pcService;
@@ -27,7 +31,6 @@ public class PCsController : ControllerBase
     {
         try
         {
-            // Note: Make sure to add this method to your IDbService
             var res = await _pcService.GetPcWithComponentsByIdAsync(id);
             return Ok(res);
         }
@@ -36,5 +39,46 @@ public class PCsController : ControllerBase
             return NotFound(e.Message);
         }
     }
+
+    [HttpPost]
+    public async Task<IActionResult> AddPC(CreatePCRequestDTO request)
+    {
+        var res = await _pcService.CreatePCAsync(request);
+        return Created($"api/pcs/{res.Id}", res);
+    }
+
+    [Route("{id}")]
+    [HttpPut]
+    public async Task<IActionResult> UpdatePC(int id, CreatePCRequestDTO request)
+    {
+        try
+        {
+            await _pcService.UpdatePcAsync(id, request);
+            return NoContent();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
+    [Route("{id}")]
+    [HttpDelete]
+    public async Task<IActionResult> RemovePC(int id)
+    {
+        try
+        {
+            await _pcService.DeletePCAsync(id);
+            return NoContent();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        
+    }
+    
+    
+    
     
 }
