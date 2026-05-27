@@ -25,9 +25,8 @@ public class PCsController : ControllerBase
     }
     
     
-    [Route("{id}/components")]
-    [HttpGet]
-    public async Task<IActionResult> GetPcComponentsById(int id)
+    [HttpGet("{id}/components")]
+    public async Task<IActionResult> GetPcComponentsById([FromRoute] int id)
     {
         try
         {
@@ -47,9 +46,8 @@ public class PCsController : ControllerBase
         return Created($"api/pcs/{res.Id}", res);
     }
 
-    [Route("{id}")]
-    [HttpPut]
-    public async Task<IActionResult> UpdatePC(int id, CreatePCRequestDTO request)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePC([FromRoute] int id, CreatePCRequestDTO request)
     {
         try
         {
@@ -62,9 +60,8 @@ public class PCsController : ControllerBase
         }
     }
 
-    [Route("{id}")]
-    [HttpDelete]
-    public async Task<IActionResult> RemovePC(int id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> RemovePC([FromRoute] int id)
     {
         try
         {
